@@ -1,24 +1,17 @@
-from hammett.core import Bot, Button, Screen
-from hammett.core.constants import DEFAULT_STATE, SourceTypes
-from hammett.core.mixins import StartMixin
+from hammett.core import Bot
+from hammett.core.constants import DEFAULT_STATE
 
 
-class Main(StartMixin, Screen):
-    description = 'Hello, World!'
+from screens import MainMenuScreen, PaymentScreen, FakePaymentScreen, OrdersScreen, AdminPanelScreen
 
-    async def add_default_keyboard(self, update, context):
-        return [[
-            Button('🎸 Hello, World!', 'https://github.com/cusdeb-com/hammett',
-                   source_type=SourceTypes.URL_SOURCE_TYPE),
-        ]]
 
 def main():
-    name = 'HelloWorld'
+    name = 'ShopBot'
     app = Bot(
         name,
-        entry_point=Main,
+        entry_point=MainMenuScreen,
         states={
-            DEFAULT_STATE: {Main},
+            DEFAULT_STATE: {FakePaymentScreen, MainMenuScreen, PaymentScreen, OrdersScreen, AdminPanelScreen},
         },
     )
     app.run()
